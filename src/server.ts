@@ -38,19 +38,15 @@ app.post('/',(_req: Request, res: Response) => {
                 { quality: 'highest',
                   filter: 'audioonly' 
                 });
-                res.set({ "Content-Type": "audio/mpeg" });
-
-                await new Promise((resolve, reject) => {
-                    const ffmpegCommand = Ffmpeg().input(ytdl.downloadFromInfo(info,{
+                res.setHeader('Content-Type', 'audio/mpeg'),
+                res.setHeader('Transfer-Encoding', 'chunked');
+                    Ffmpeg().input(ytdl.downloadFromInfo(info,{
                         format: format }))
                         .audioBitrate(128)
                         .audioCodec('libmp3lame')
                         .format('mp3')
-                        .on('end', ()=>console.log('Done converting'))
-                        .on('error', ()=>console.log('Error while converting'))
-                        resolve(ffmpegCommand.pipe(res));
-                        reject('Error while converting' +"\n"+ffmpegCommand);
-                })
+                        .on('error',(err) => {console.log(err); res.end('Error in converting')})  
+                        .pipe(res,{end:true});            
             }
             
             handleUrl();
