@@ -40,6 +40,7 @@ app.post('/',(_req: Request, res: Response) => {
                 });
                 res.setHeader('Content-Type', 'audio/mpeg'),
                 res.setHeader('Transfer-Encoding', 'chunked');
+                res.setHeader('Accept-Ranges', 'bytes');
                     /* Ffmpeg().input(ytdl.downloadFromInfo(info,{
                         format: format }))
                         .audioBitrate(128)
