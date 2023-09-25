@@ -38,9 +38,7 @@ app.post('/',(_req: Request, res: Response) => {
                 { quality: 'highest',
                   filter: 'audioonly' 
                 });
-                res.setHeader('Content-Type', 'audio/mpeg'),
-                res.setHeader('Transfer-Encoding', 'chunked');
-                res.setHeader('Accept-Ranges', 'bytes');
+                res.setHeader('Content-Type', 'audio/mpeg');
                     /* Ffmpeg().input(ytdl.downloadFromInfo(info,{
                         format: format }))
                         .audioBitrate(128)
