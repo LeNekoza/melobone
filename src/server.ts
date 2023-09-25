@@ -39,24 +39,16 @@ app.post('/',(_req: Request, res: Response) => {
                   filter: 'audioonly' 
                 });
                 res.setHeader('Content-Type', 'audio/mpeg');
-                    /* Ffmpeg().input(ytdl.downloadFromInfo(info,{
+                res.setHeader('Response-Encoding', 'chunked')
+                    Ffmpeg().input(ytdl.downloadFromInfo(info,{
                         format: format }))
+                        .outputOptions('-preset','ultrafast')
                         .audioBitrate(128)
                         .audioCodec('libmp3lame')
                         .format('mp3')
                         .on('error',(err) => {console.log(err); res.end('Error in converting')})  
-                        .pipe(res,{end:true});  */   
-                        Ffmpeg().input(format.url).inputOptions([
-                            '-reconnect 1',
-                            '-reconnect_streamed 1',
-                            '-reconnect_delay_max 5',
-                            '-reconnect_at_eof 1'
-
-                        ]).audioBitrate(128)
-                        .audioCodec('libmp3lame')
-                        .format('mp3')
-                        .on('error',(err) => {console.log(err); res.end('Error in converting')})
-                        .pipe(res,{end:true});        
+                        .pipe(res,{end:true});    
+                            
             }
             
             handleUrl();
