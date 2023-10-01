@@ -6,15 +6,15 @@ import cors from 'cors';
 import ytdl from 'ytdl-core';
 import Ffmpeg from 'fluent-ffmpeg';
 import ffmpegPath from 'ffmpeg-static';
-import path from 'path';
-import fs from 'fs';
-import {fileURLToPath} from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+/* import path from 'path'; */
+/* import fs from 'fs'; */
+/* import {fileURLToPath} from 'url'; */
+/* const __filename = fileURLToPath(import.meta.url); */
+/* const __dirname = path.dirname(__filename); */
 Ffmpeg.setFfmpegPath(ffmpegPath as unknown as string);
-const tempDir = path.join(__dirname,'./temp');
+/* const tempDir = path.join(__dirname,'./temp'); */
 const app = express();
-const port = 3000;
+const port = 5000;
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.text());
@@ -51,9 +51,10 @@ app.post('/',(_req: Request, res: Response) => {
                                 resolve('done');
                             })
                         })
-
-                        ffmpeg.save(path.join(tempDir,'output.mp3'));
+                        ffmpeg.writeToStream(res,{end:true})
                         await conversionPromise;
+                       /*  ffmpeg.save(path.join(tempDir,'output.mp3'));
+                        await conversionPromise; */
             
                     }                         
             
@@ -61,19 +62,19 @@ app.post('/',(_req: Request, res: Response) => {
                 await handleUrl();
                     console.log('done converting');
                     
-                    const fileStream = fs.createReadStream(`${__dirname}/temp/output.mp3`)
-                    fileStream.on('open',()=>{
+                   /*  const fileStream = fs.createReadStream(`${__dirname}/temp/output.mp3`)
+                    fileStream.on('open',()=>{ */
                         /* res.set({
                             'Content-Type':'audio/mpeg',
                             'Content-Disposition': 'attachment; filename="output.mp3"'
                         }) */
-                    res.attachment('output.mp3')
+                   /*  res.attachment('output.mp3')
                         fileStream.pipe(res)
                     })
                     fileStream.on('error',err=>{
                         res.send('Error: ' + err)
                     })
-
+ */
 
 
 
