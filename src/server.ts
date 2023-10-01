@@ -14,7 +14,7 @@ import ffmpegPath from 'ffmpeg-static';
 Ffmpeg.setFfmpegPath(ffmpegPath as unknown as string);
 /* const tempDir = path.join(__dirname,'./temp'); */
 const app = express();
-const port = 5000;
+const port = 3000;
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.text());
