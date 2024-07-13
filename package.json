@@ -37,7 +37,6 @@
     "ffmpeg-static": "^5.2.0",
     "fluent-ffmpeg": "^2.1.2",
     "multer": "1.4.5-lts.1",
-    "rimraf": "^6.0.1",
-    "ytdl-core": "^4.11.5"
+    "rimraf": "^6.0.1"
   }
 }
